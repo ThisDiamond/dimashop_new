@@ -1,11 +1,10 @@
 import express, { Express } from "express";
-import { engine } from 'express-handlebars'
+import { engine } from 'express-handlebars';
 import session from "express-session";
 import dotenv from 'dotenv'
 import cors from 'cors'
 import flash from 'connect-flash'
 import cookieParser from "cookie-parser";
-
 
 // routes
 import index from "./controllers/index";
@@ -14,6 +13,7 @@ dotenv.config()
 
 const app: Express = express()
 
+// handlerbars
 app.engine("hbs", engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
 app.set("views", "./src/views");
@@ -30,11 +30,11 @@ app.use(cookieParser())
 app.use(index)
 
 
-const Startapp = () => {
+const Startapp = (): void => {
     try {
-        const PORT = process.env.PORT || 1111
-        app.listen((PORT), () => console.log(`Server running on port :${PORT}`))
-    } catch (err) { console.error(err) }
-}
+        const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 1111;
+        app.listen(PORT, () => console.log(`Server running on port :${PORT}`));
+    } catch (err) { console.error(err); }
+};
 
 Startapp()
