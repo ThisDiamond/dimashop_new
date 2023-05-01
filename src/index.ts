@@ -7,7 +7,9 @@ import flash from 'connect-flash'
 import cookieParser from "cookie-parser";
 
 // routes
-import index from "./controllers/index";
+import index from "./routes/index";
+import auth from './routes/auth'
+import user from './routes/user'
 
 dotenv.config()
 
@@ -28,12 +30,14 @@ app.use(cookieParser())
 
 // routes
 app.use(index)
+app.use(auth)
+app.use(user)
 
 
 const Startapp = (): void => {
     try {
         const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 1111;
-        app.listen(PORT, () => console.log(`Server running on port :${PORT}`));
+        app.listen(PORT, () => console.log(`Server running on port : ${PORT}`));
     } catch (err) { console.error(err); }
 };
 
